@@ -1,4 +1,4 @@
-# 🎯 YouTube Comment Sentiment Analysis: A Multi-Method Comparative Study
+# YouTube Comment Sentiment Analysis: A Multi-Method Comparative Study
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue?style=flat-square&logo=python)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
