@@ -12,17 +12,15 @@ youtube = googleapiclient.discovery.build(
     developerKey=os.getenv("YOUTUBE_API_KEY")
 )
 
-# -----------------------------
+
 # TEXT PREPROCESSING FUNCTION
-# -----------------------------
 def preprocess_text(text):
-    text = text.lower()                 # convert to lowercase
-    text = re.sub(r"\s+", " ", text)    # remove extra whitespaces
+    text = text.lower()                
+    text = re.sub(r"\s+", " ", text)  
     return text.strip()
 
-# -----------------------------
+
 # FETCH COMMENTS
-# -----------------------------
 def fetch_comments(video_url, max_comments):
     if "youtu.be/" in video_url:
         video_id = video_url.split("youtu.be/")[-1].split("?")[0]
@@ -63,9 +61,9 @@ def fetch_comments(video_url, max_comments):
 
     return comments[:max_comments]
 
-# -----------------------------
+
 # SAVE COMMENTS TO CSV
-# -----------------------------
+
 def save_to_csv(comments, filename="youtube_comments.csv"):
     with open(filename, mode="w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
@@ -75,9 +73,8 @@ def save_to_csv(comments, filename="youtube_comments.csv"):
 
     print(f"\nSaved {len(comments)} comments to {filename}")
 
-# -----------------------------
+
 # MAIN FUNCTION
-# -----------------------------
 def main():
     video_url = input("Enter YouTube video URL: ").strip()
     n_comments = int(input("Enter number of comments to fetch: ").strip())
