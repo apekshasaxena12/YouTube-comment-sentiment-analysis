@@ -2,9 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, accuracy_score, ConfusionMatrixDisplay
 
-# =========================
 # LABEL CLEANING FUNCTION
-# =========================
 def normalize_labels(series):
     return (
         series.astype(str)
@@ -12,15 +10,14 @@ def normalize_labels(series):
         .str.replace(r"\s+", " ", regex=True)
     )
 
-# =========================
-# LOAD GOLD DATA
-# =========================
+
+# LOAD MAIN DATA
+
 gold = pd.read_csv("1_comments_class.csv")
 true_labels = normalize_labels(gold["label"])
 
-# =========================
+
 # LOAD MODEL PREDICTIONS
-# =========================
 model_files = {
     "RoBERTa": "1_roberta.csv",
     "Gemini": "1_Gemini.csv",
@@ -34,9 +31,8 @@ accuracies = {}
 LABELS = sorted(true_labels.unique())
 print("Canonical labels:", LABELS)
 
-# =========================
+
 # LOAD + CLEAN PREDICTIONS
-# =========================
 for model, path in model_files.items():
     df = pd.read_csv(path)
     preds = normalize_labels(df["label"])
@@ -46,9 +42,8 @@ for model, path in model_files.items():
 
     print(f"{model} Accuracy: {accuracies[model]:.4f}")
 
-# =========================
+
 # CONFUSION MATRICES (DIAGRAM)
-# =========================
 for model, preds in model_labels.items():
     cm = confusion_matrix(true_labels, preds, labels=LABELS)
 
@@ -68,9 +63,8 @@ for model, preds in model_labels.items():
     plt.tight_layout()
     plt.show()
 
-# =========================
+
 # ACCURACY COMPARISON BAR CHART
-# =========================
 plt.figure()
 plt.bar(accuracies.keys(), accuracies.values())
 plt.ylim(0, 1)
@@ -78,9 +72,8 @@ plt.ylabel("Accuracy")
 plt.title("Accuracy Comparison Across Models")
 plt.show()
 
-# =========================
+
 # PIE CHARTS
-# =========================
 for model, acc in accuracies.items():
     plt.figure()
     plt.pie(
