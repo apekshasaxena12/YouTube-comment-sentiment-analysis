@@ -69,4 +69,4 @@ df["label"] = df[TEXT_COLUMN].apply(classify_vader)
 
 df.to_csv(OUTPUT_FILE, index=False)
 
-print("✅ VADER-based classification complete → vader.csv")
+print("VADER-based classification complete → vader.csv")
