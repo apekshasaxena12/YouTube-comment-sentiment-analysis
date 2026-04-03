@@ -13,7 +13,7 @@
 
 This study evaluates the performance of four natural language processing approaches for fine-grained YouTube comment classification. Comments are collected from five distinct video genres (music, politics, podcast, gaming, and education), manually labeled, and then classified by each method independently. Results are benchmarked against human-annotated ground truth using Accuracy, Precision, Recall, and F1-Score.
 
-**Key Finding:** LLM-based classification (Gemini 2.5 Flash) significantly outperforms all other methods, achieving up to 92% accuracy — compared to ~25–63% for traditional and transformer-based approaches.
+**Key Finding:** LLM-based classification (Gemini 2.5 Flash) significantly outperforms all other methods, achieving up to 93% accuracy — compared to ~25–63% for traditional and transformer-based approaches.
 
 ---
 
@@ -31,11 +31,11 @@ youtube-comment-sentiment/
 │   │   └── 5_youtube_comments_raw_ed.csv
 │   │
 │   └── classified/
-│       ├── {1..5}_comments_class.csv      ← Ground truth (human labels)
-│       ├── {1..5}_vader.csv               ← VADER predictions
-│       ├── {1..5}_hybrid.csv              ← Hybrid predictions
-│       ├── {1..5}_roberta.csv             ← RoBERTa predictions
-│       └── {1..5}_Gemini.csv              ← Gemini predictions
+│       ├── 1_comments_class.csv      
+│       ├── 2_comments_class.csv        
+│       ├── 3_comments_class.csv              
+│       ├── 4_comments_class.csv           
+│       └── 5_comments_class.csv              
 │
 ├── scripts/
 │   ├── comments.py         ← YouTube API data collection
@@ -44,14 +44,15 @@ youtube-comment-sentiment/
 │   ├── hybrid.py           ← Hybrid (VADER + RoBERTa) classifier
 │   ├── gemini.py           ← Gemini 2.5 Flash LLM classifier  ⭐ Main method
 │   ├── compare.py          ← Evaluation & metric computation
-│   ├── results.py          ← Results aggregation & charts
-│   └── mismatch.py         ← Error/mismatch analysis
+│   └── results.py          ← Results aggregation & charts
 │
 ├── outputs/
-│   ├── performance_comparison.png     ← Line chart: Accuracy/P/R/F1 per method
-│   └── accuracy_heatmap.png           ← Heatmap: Accuracy per video × method
+│   ├── Fig1_confusion_matrices.png       ← Normalised confusion matrices for all four methods
+│   ├── Fig2_accuracy_heatmap.png         ← Heatmap of per-video classification accuracy across all methods
+│   ├── Fig3_per_class_f1_heatmap.png     ← Per-class F1 score heatmap revealing Gemini's superior performance across most categories
+│   ├── Fig4_metrics_line_chart.png       ← Line chart comparing accuracy, precision, recall, and F1 averaged across 5 videos
+│   └── Fig5_metrics_grouped_bar.png      ← Grouped bar chart 
 │
-├── explanation.txt         ← Notes on methodology & design decisions
 ├── requirements.txt
 ├── .gitignore
 └── README.md
@@ -63,12 +64,12 @@ youtube-comment-sentiment/
 
 | # | Video Category | Raw CSV | Comments |
 |---|---------------|---------|----------|
-| 1 | Music / Song | `1_youtube_comments_raw_song.csv` | 250 |
+| 1 | Music / Song | `1_youtube_comments_raw_song.csv` | 248 |
 | 2 | Politics | `2_youtube_comments_raw_politics.csv` | 250 |
 | 3 | Podcast | `3_youtube_comments_raw_doac.csv` | 250 |
 | 4 | Gaming | `4_youtube_comments_raw_game.csv` | 250 |
 | 5 | Education | `5_youtube_comments_raw_ed.csv` | 250 |
-| | **Total** | | **1,250** |
+| | **Total** | | **1,248** |
 
 Comments were collected using the **YouTube Data API v3**.
 
@@ -144,7 +145,7 @@ Final CSV Output
 
 | Video | VADER | Hybrid | RoBERTa | Gemini |
 |-------|-------|--------|---------|--------|
-| 1 — Song | 0.62 | 0.63 | 0.51 | **0.92** |
+| 1 — Song | 0.62 | 0.63 | 0.51 | **0.93** |
 | 2 — Politics | 0.25 | 0.36 | 0.48 | **0.87** |
 | 3 — Podcast | 0.28 | 0.29 | 0.21 | **0.83** |
 | 4 — Gaming | 0.39 | 0.38 | 0.31 | **0.78** |
