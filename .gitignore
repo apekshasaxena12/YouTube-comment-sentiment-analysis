@@ -1,6 +1,5 @@
-# ========================
+
 # API Keys & Secrets
-# ========================
 .env
 .env.*
 secrets.py
@@ -8,9 +7,8 @@ config.py
 *_key.txt
 api_keys/
 
-# ========================
+
 # Python
-# ========================
 __pycache__/
 *.py[cod]
 *.pyo
@@ -29,54 +27,47 @@ develop-eggs/
 lib/
 lib64/
 
-# ========================
+
 # Virtual Environments
-# ========================
 venv/
 env/
 .venv/
 .env/
 ENV/
 
-# ========================
+
 # Jupyter Notebooks
-# ========================
 .ipynb_checkpoints/
 *.ipynb
 
-# ========================
+
 # IDEs
-# ========================
 .vscode/
 .idea/
 *.sublime-project
 *.sublime-workspace
 
-# ========================
+
 # OS Files
-# ========================
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# ========================
+
 # Logs
-# ========================
 *.log
 logs/
 
-# ========================
+
 # Model Weights (large files)
-# ========================
 *.bin
 *.pt
 *.pth
 *.ckpt
 models/
 
-# ========================
+
 # Misc
-# ========================
 *.tmp
 *.bak
 *.swp
