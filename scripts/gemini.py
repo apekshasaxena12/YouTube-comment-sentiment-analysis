@@ -3,9 +3,6 @@ from google import genai
 from tqdm import tqdm
 import time
 
-# -----------------------------
-# CONFIG
-# -----------------------------
 GEMINI_API_KEY = "YOUR API KEY"
 
 client = genai.Client(api_key=GEMINI_API_KEY)
@@ -24,9 +21,7 @@ LABELS = [
     "Negative normal"
 ]
 
-# -----------------------------
 # LOAD COMMENTS
-# -----------------------------
 df = pd.read_csv("5_youtube_comments_raw_ed.csv")
 
 comment_col = next(col for col in df.columns if "comment" in col.lower())
@@ -34,9 +29,8 @@ df = df.rename(columns={comment_col: "comment"})
 
 comments = df["comment"].astype(str).tolist()
 
-# -----------------------------
+
 # CLASSIFICATION FUNCTION
-# -----------------------------
 def classify_batch(batch_comments):
     prompt = f"""
 You are an expert content moderator.
@@ -67,9 +61,8 @@ Comments:
 
     return labels
 
-# -----------------------------
-# BATCHED INFERENCE (RATE-LIMIT SAFE)
-# -----------------------------
+
+# BATCHED INFERENCE 
 predicted_labels = []
 
 for i in tqdm(range(0, len(comments), BATCH_SIZE), desc="Classifying with Gemini"):
@@ -77,9 +70,8 @@ for i in tqdm(range(0, len(comments), BATCH_SIZE), desc="Classifying with Gemini
     predicted_labels.extend(classify_batch(batch))
     time.sleep(12)  # free-tier rate limit safety
 
-# -----------------------------
+
 # SAVE OUTPUT
-# -----------------------------
 output_df = pd.DataFrame({
     "comment": comments,
     "label": predicted_labels
@@ -87,5 +79,5 @@ output_df = pd.DataFrame({
 
 output_df.to_csv("Gemini.csv", index=False)
 
-print("✅ Gemini classification completed")
-print("📁 Output saved as Gemini.csv")
+print(" Gemini classification completed")
+print("Output saved as Gemini.csv")
